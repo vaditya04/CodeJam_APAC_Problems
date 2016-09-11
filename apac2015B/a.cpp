@@ -27,7 +27,7 @@ using namespace std;
 #define MOD 1000000007
 
 vector<vector<long long> > passwordStore;
-vector<vector<long long> > factorialStore;
+vector<vector<long long> > combinatorialStore;
 
 long long computePower(long long m , long long n)
 {
@@ -40,27 +40,27 @@ long long computePower(long long m , long long n)
     return answer;
 }
 
-long long computeFactorial(long long n, long long i)
+long long computeCombinatorial(long long n, long long i)
 {
-    if (factorialStore[n][i] != -1)
+    if (combinatorialStore[n][i] != -1)
     {
-        return factorialStore[n][i];
+        return combinatorialStore[n][i];
     }
     else if ( i == n || i == 0)
     {
-        factorialStore[n][i] = 1;
+        combinatorialStore[n][i] = 1;
     }
     else if (i == n-1 || i == 1)
     {
-        factorialStore[n][i] = n%MOD;
+        combinatorialStore[n][i] = n%MOD;
     }
     else
     {
-        factorialStore[n][i] = (factorialStore[n-1][i-1] + factorialStore[n-1][i])%MOD;
+        combinatorialStore[n][i] = (combinatorialStore[n-1][i-1] + combinatorialStore[n-1][i])%MOD;
 
     }
 
-    return factorialStore[n][i];
+    return combinatorialStore[n][i];
 }
 
 long long computePasswords(long long charCount, long long stringLength)
@@ -86,7 +86,7 @@ long long computePasswords(long long charCount, long long stringLength)
         long long answer = computePower(charCount, stringLength);
         for (int i = charCount-1; i > 0; --i)
         {
-            answer -= computePasswords(i, stringLength)*computeFactorial(charCount, charCount-i);
+            answer -= computePasswords(i, stringLength)*computeCombinatorial(charCount, charCount-i);
             answer %= MOD;
         }
 
@@ -115,7 +115,7 @@ int main(int argc, char const *argv[])
     cin>>testCaseCount;
 
     passwordStore.resize(101, vector<long long>(101, -1));
-    factorialStore.resize(101, vector<long long>(101, -1));
+    combinatorialStore.resize(101, vector<long long>(101, -1));
 
     for (int i = 0; i < testCaseCount; ++i)
     {
