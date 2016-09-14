@@ -227,6 +227,7 @@ int main(int argc, char const *argv[])
             {
                 cin>>cardCost[k];
             }
+            
             cardCost[currentLevel-1] = 0;
             cardAttacks.push_back(cardAttack);
             cardCosts.push_back(cardCost);
